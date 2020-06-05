@@ -2,6 +2,7 @@ package com.example.libraryloan.controller;
 
 import com.example.libraryloan.dao.LoanDao;
 import com.example.libraryloan.model.Loan;
+import com.example.libraryloan.service.LoanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,12 @@ public class LoanRestController {
     Logger logger = LoggerFactory.getLogger(LoanRestController.class);
 
     @Autowired
-    LoanDao loanDao;
+    LoanService loanService;
 
     //addLoan
     @PostMapping(value = "/loan")
         public ResponseEntity<Void> addLoan(@RequestBody Loan loan) {
-        Loan loanAdded =   loanDao.save(loan);
+        Loan loanAdded =   loanService.saveOrUpdate(loan);
         if (loanAdded == null)
             return ResponseEntity.noContent().build();
 
@@ -44,7 +45,7 @@ public class LoanRestController {
     //endLoan or //renewLoan
     @PutMapping(value="/loan")
     public void endLoan(@RequestBody Loan loan){
-        loanDao.save(loan);
+        loanService.saveOrUpdate(loan);
     }
 
 
@@ -53,12 +54,12 @@ public class LoanRestController {
     public List<Loan> listLoanNotReturnedOnTime(){
         LocalDate localDate = LocalDate.now();
         logger.info(Date.valueOf(localDate).toString());
-        return loanDao.findByEndDateLessThanAndReturnedFalse(Date.valueOf(localDate));
+        return loanService.findByEndDateLessThanAndReturnedFalse(Date.valueOf(localDate));
     }
 
     @GetMapping(value ="/loans/{user}")
     public List<Loan> listLoans(@PathVariable int user){
-        return loanDao.findByUser(user);
+        return loanService.findByUser(user);
     }
 
 

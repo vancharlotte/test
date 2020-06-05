@@ -10,13 +10,19 @@
 
 <div class="container">
 
-    <h1>livre : </h1>
 
-    <p th:text="${book.title}"></p>
+    <h1 th:text="${book.title}"> by <span th:text="${book.author}"></span>
+    </h1>
 
-    <h4>Nombre d'exemplaire disponible : </h4>
+    <p> genre : <span th:text="${book.genre}"></span></p>
 
-    <p th:text="${nbCopy}"></p>
+    <p> date de parution : <span th:text="${book.releaseDate}"></span></p>
+
+    <p> description : <span th:text="${book.summary}"></span></p>
+
+    <p>Nombre d'exemplaire disponible : <span th:text="${nbCopy}"></span>
+    </p>
+
 
 </div>
 
