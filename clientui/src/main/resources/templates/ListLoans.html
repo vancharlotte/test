@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bibliothèque</title>
+
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Liste des emprunts : </h1>
+    
+    <div th:each="entry  : ${map}">
+        <div th:each="book : ${entry.value}">
+            <p th:text="${book.title}"></p>
+        </div>
+        <div th:each="loan : ${entry.key}">
+            <p th:text="${loan.endDate}"></p>
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

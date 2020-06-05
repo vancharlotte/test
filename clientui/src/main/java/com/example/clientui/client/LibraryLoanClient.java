@@ -3,10 +3,7 @@ package com.example.clientui.client;
 import com.example.clientui.beans.LoanBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +18,8 @@ public interface LibraryLoanClient {
 
     @GetMapping(value ="/loanNotReturnedOnTime")
     List<LoanBean> listLoanNotReturnedOnTime();
+
+    @GetMapping(value ="/loans/{user}")
+    List<LoanBean> listLoans(@PathVariable int user);
 }
 

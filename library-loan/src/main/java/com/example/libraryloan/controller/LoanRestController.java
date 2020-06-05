@@ -56,7 +56,10 @@ public class LoanRestController {
         return loanDao.findByEndDateLessThanAndReturnedFalse(Date.valueOf(localDate));
     }
 
-
+    @GetMapping(value ="/loans/{user}")
+    public List<Loan> listLoans(@PathVariable int user){
+        return loanDao.findByUser(user);
+    }
 
 
 

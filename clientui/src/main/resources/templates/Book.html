@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bibliothèque</title>
+
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>livre : </h1>
+
+    <p th:text="${book.title}"></p>
+
+    <h4>Nombre d'exemplaire disponible : </h4>
+
+    <p th:text="${nbCopy}"></p>
+
+</div>
+
+</body>
+</html>
