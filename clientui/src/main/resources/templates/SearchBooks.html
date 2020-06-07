@@ -1,24 +1,52 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Bibliothèque</title>
+    <title>Livres </title>
+    <div th:insert="fragments/header.html"></div>
+    <style>
+        .container1 .row {
+            margin: 25px;
+        }
 
-    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
+    </style>
 
 </head>
+
 <body>
+<div class="container1">
 
-<div class="container">
+    <div class="row justify-content-center" style="height: 100px">
 
-    <h1>Liste des livres dans la Bibliothèque : </h1>
+        <form class="form-inline justify-content-center bg-info col-12 rounded">
+            <div class="form-group mb-2 col-md-6 col-9">
+                <label for="searchBook" class="sr-only"></label>
+                <input type="text" class="form-control w-100 " id="searchBook"
+                       placeholder="livre, auteur, genre...">
+            </div>
+            <button type="submit" class="btn btn-outline-light mb-2 col-md-2 col-3">Recherche</button>
+        </form>
 
-    <div th:each="book : ${books}">
-
-        <a th:href="@{/books/{bookId}(bookId=${book.id})}">
-            <p th:text="${book.title}"></p>
-        </a>
     </div>
+
+    <div class="row">
+
+        <div class=" justify-content-center bg-light col-12 rounded">
+        <h1>Liste des livres dans la Bibliothèque : </h1>
+
+        <div th:each="book : ${books}">
+            <a th:href="@{/books/{bookId}(bookId=${book.id})}">
+                <p th:text="${book.title}"></p>
+            </a>
+        </div>
+        </div>
+
+    </div>
+
 </div>
 
+
 </body>
+<footer>
+    <div th:insert="fragments/footer.html"></div>
+</footer>
 </html>
