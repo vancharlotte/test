@@ -34,9 +34,11 @@
                     <h6> description : </h6>
                     <span th:text="${book.summary}"></span>
                     <hr>
+                    <h6>Nombre d'exemplaire disponible :
+                        <span th:text="${nbCopyAvailable}"></span> /
+                        <span th:text="${nbCopy}"></span>
 
-                    <p>Nombre d'exemplaire disponible : <span th:text="${nbCopy}"></span>
-                    </p>
+                    </h6>
                 </div>
 
             </div>

@@ -13,13 +13,17 @@ public interface LibraryLoanClient {
     @PostMapping(value = "/loan")
     ResponseEntity<Void> addLoan(@RequestBody LoanBean loan);
 
-    @PutMapping(value="/loan")
+    @PutMapping(value = "/loan")
     void endLoan(@RequestBody LoanBean loan);
 
-    @GetMapping(value ="/loanNotReturnedOnTime")
+    @GetMapping(value = "/loanNotReturnedOnTime")
     List<LoanBean> listLoanNotReturnedOnTime();
 
-    @GetMapping(value ="/loans/{user}")
+    @GetMapping(value = "/loans/{user}")
     List<LoanBean> listLoans(@PathVariable int user);
-}
 
+
+    @GetMapping(value = "/books/{copy}")
+    boolean copyAvailable(@PathVariable int copy);
+
+}
