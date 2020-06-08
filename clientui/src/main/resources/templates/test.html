@@ -4,10 +4,6 @@
 <head>
     <title>Bibliothèque</title>
     <style>
-        .container1 .row{
-            margin: 25px;
-            padding: 25px;
-        }
 
         .container1 a:link, a:visited {
             text-decoration: none;
@@ -26,11 +22,11 @@
 </head>
 
 <body>
-<div class="container1 justify-content-center bg-light col-12 rounded">
+<div class="container1 justify-content-center bg-light col-12 my-3 p-3 rounded ">
     <div class="row text-center">
 
         <div class="col-12 col-lg-6 ">
-            <a th:href=" @{/books}" class="card border-info mb-3 mx-auto" style="width: 25rem; height: 37rem">
+            <a th:href=" @{/books}" class="card border-info my-3 mx-auto" style="width: 25rem; height: 37rem">
                 <h5 class="card-header text-info">Faire une recherche</h5>
                 <img src="images/bookicon.png" alt="booksearch" class="card-img-top">
                 <div class="card-body text-info">
@@ -42,7 +38,7 @@
         </div>
 
         <div class="col-12 col-lg-6">
-            <a th:href="@{/loans/4}" class="card border-info mb-3 mx-auto" style="width: 25rem; height: 37rem">
+            <a th:href="@{/loans/4}" class="card border-info my-3 mx-auto" style="width: 25rem; height: 37rem">
                 <h5 class="card-header text-info">Consulter mes emprunts</h5>
                 <img src="images/loanicon.png" alt="booksearch" class="card-img-top">
                 <div class="card-body text-info">

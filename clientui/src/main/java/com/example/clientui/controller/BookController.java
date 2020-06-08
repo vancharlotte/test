@@ -32,4 +32,6 @@ public class BookController {
         model.addAttribute("nbCopy", copies.size());
         return "Book";
     }
+
+
 }

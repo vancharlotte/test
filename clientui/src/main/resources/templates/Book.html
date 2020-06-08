@@ -5,30 +5,43 @@
     <div th:insert="fragments/header.html">...</div>
 
     <style>
-        .container1 {
-            margin: 25px;
-        }
     </style>
 
 
 </head>
 <body>
 
-<div class="container1 justify-content-center bg-light col-12 rounded">
+<div class="container1 justify-content-center bg-light col-12 my-3 p-3 rounded">
 
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-12">
+            <div class="row justify-content-center bg-info text-white p-5">
+                <h2  th:text="${book.title}"></h2>
+            </div>
 
-    <h1 th:text="${book.title}"> by <span th:text="${book.author}"></span>
-    </h1>
+            <div class="row p-3">
 
-    <p> genre : <span th:text="${book.genre}"></span></p>
+                <div class="col-6 text-center">
+                    <img class="img-responsive my-5" src="/images/logo1.png" alt="book" style="max-width:150px;">
+                </div>
+                <div class="col-6">
+                    <br>
+                    <h5> par <span th:text="${book.author}"></span></h5>
+                    <hr>
+                    <h6> genre : <span th:text="${book.genre}"></span></h6>
+                    <h6> date de parution : <span th:text="${book.releaseDate}"></span></h6>
+                    <hr>
+                    <h6> description : </h6>
+                    <span th:text="${book.summary}"></span>
+                    <hr>
 
-    <p> date de parution : <span th:text="${book.releaseDate}"></span></p>
+                    <p>Nombre d'exemplaire disponible : <span th:text="${nbCopy}"></span>
+                    </p>
+                </div>
 
-    <p> description : <span th:text="${book.summary}"></span></p>
-
-    <p>Nombre d'exemplaire disponible : <span th:text="${nbCopy}"></span>
-    </p>
-
+            </div>
+        </div>
+    </div>
 
 </div>
 

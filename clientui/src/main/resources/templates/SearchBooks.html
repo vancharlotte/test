@@ -4,18 +4,29 @@
     <title>Livres </title>
     <div th:insert="fragments/header.html"></div>
     <style>
-        .container1 .row {
-            margin: 25px;
+
+
+
+        .container1 a:link, a:visited {
+            text-decoration: none;
+            border-radius: 5px;
+            float: none;
+            color: black;
         }
+
+        .container1 a:hover, a:active {
+            color: royalblue;
+        }
+
 
     </style>
 
 </head>
 
 <body>
-<div class="container1">
+<div class="container1 bg-light col-12 mb-3 rounded">
 
-    <div class="row justify-content-center" style="height: 100px">
+    <div class="row justify-content-center mb-3" style="height: 100px">
 
         <form class="form-inline justify-content-center bg-info col-12 rounded">
             <div class="form-group mb-2 col-md-6 col-9">
@@ -28,16 +39,41 @@
 
     </div>
 
-    <div class="row">
+    <div class="row justify-content-center">
 
-        <div class=" justify-content-center bg-light col-12 rounded">
-        <h1>Liste des livres dans la Bibliothèque : </h1>
+        <div class="col-lg-8 col-12">
 
-        <div th:each="book : ${books}">
-            <a th:href="@{/books/{bookId}(bookId=${book.id})}">
-                <p th:text="${book.title}"></p>
-            </a>
-        </div>
+            <h1 class="align-center">Liste des livres dans la Bibliothèque </h1>
+            <br>
+
+            <table class="table table-striped table-responsive">
+                <thead>
+                <tr class="bg-info ">
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${books}" th:href="@{/books/{bookId}(bookId=${book.id})}">
+                    <td>
+                        <a th:href="@{/books/{bookId}(bookId=${book.id})}">
+                            <img src="images/logo1.png" alt="book" style="max-width:150px;">
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{/books/{bookId}(bookId=${book.id})}">
+                            <h5 th:text="${book.title}" th:href="@{/books/{bookId}(bookId=${book.id})}"></h5>
+                            <p> Auteur : <span th:text="${book.author}"></span>
+                                <br> genre : <span th:text="${book.genre}"></span>
+                                <br> parution : <span th:text="${book.releaseDate}"></span>
+                                <br> exemplaire disponible : <span> inconnu</span>
+                            </p>
+                        </a>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
 
     </div>
