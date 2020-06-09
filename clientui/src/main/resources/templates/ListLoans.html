@@ -4,7 +4,7 @@
     <title>Emprunts </title>
     <div th:insert="fragments/header.html">...</div>
     <style>
-        .container1  {
+        .container1 {
             min-height: 500px;
         }
 
@@ -31,6 +31,8 @@
                     <th>date de retour</th>
                     <th>le livre a été retourné?</th>
                     <th>l'emprunt a été prolongé?</th>
+                    <td> Prolongé emprunt?</td>
+
                 </tr>
                 </thead>
 
@@ -44,6 +46,12 @@
                         <td th:text="${loan.endDate}"></td>
                         <td th:text="${loan.returned}"></td>
                         <td th:text="${loan.renewed}" th:href="@{/loans}"></td>
+                        <td>
+                            <a th:href="@{/loans/renew/4}">
+                                <button type="button" class="btn btn-primary"> Prolongé</button>
+                            </a>
+                        </td>
+
                     </div>
                 </tr>
                 </tbody>

@@ -5,18 +5,20 @@ import com.example.clientui.beans.CopyBean;
 import com.example.clientui.beans.LoanBean;
 import com.example.clientui.client.LibraryBookClient;
 import com.example.clientui.client.LibraryLoanClient;
-import com.example.clientui.client.LibraryUserClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 
 @Controller
 public class LoanController {
+
+    private Logger logger = LoggerFactory.getLogger(LoanController.class);
 
     @Autowired
     private LibraryLoanClient loanClient;
@@ -25,8 +27,9 @@ public class LoanController {
     private LibraryBookClient bookClient;
 
 
-    @RequestMapping("/loans/{user}")
+    @GetMapping("/loans/{user}")
     public String ListLoans(@PathVariable int user, Model model) {
+
         List<LoanBean> loans = loanClient.listLoans(user);
         LinkedHashMap<LoanBean, BookBean> map = new LinkedHashMap<>();
 
@@ -41,5 +44,13 @@ public class LoanController {
 
         return "ListLoans";
     }
-    
+
+    @GetMapping( value="/loans/renew/{id}")
+    public String  renewLoan(@PathVariable int id){
+        LoanBean loan =  loanClient.selectLoan(id);
+        loanClient.renewLoan(loan);
+        logger.info("put loan");
+        return "redirect:/loans/4";
+
+    }
 }

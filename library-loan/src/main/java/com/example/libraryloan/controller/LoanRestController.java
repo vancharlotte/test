@@ -25,6 +25,11 @@ public class LoanRestController {
     @Autowired
     LoanService loanService;
 
+    @GetMapping(value="/loan/{id}")
+    public Loan selectLoan(@PathVariable int id) {
+        return loanService.findById(id);
+    }
+
     //addLoan
     @PostMapping(value = "/loan")
         public ResponseEntity<Void> addLoan(@RequestBody Loan loan) {
@@ -41,10 +46,12 @@ public class LoanRestController {
     }
 
 
-    //endLoan or //renewLoan
-    @PutMapping(value="/loan")
-    public void endLoan(@RequestBody Loan loan){
-        loanService.saveOrUpdate(loan);
+    //renewLoan
+    @PutMapping(value = "/loan/renew")
+    public Loan renewLoan(@RequestBody Loan loan){
+        loan.setRenewed(true);
+        logger.info(Boolean.toString(loan.isRenewed()));
+        return loanService.saveOrUpdate(loan);
     }
 
 

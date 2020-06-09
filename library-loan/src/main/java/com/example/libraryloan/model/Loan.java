@@ -15,17 +15,17 @@ public class Loan {
     @GeneratedValue
     private int id;
 
-    @NotEmpty
+  //  @NotEmpty
     private int copy;
 
-    @NotEmpty
+  //  @NotEmpty
     private int user;
 
-    @NotEmpty
+   // @NotEmpty
     @DateTimeFormat(pattern = "dd/mm/yyyy")
     private Date startDate;
 
-    @NotEmpty
+   // @NotEmpty
     @DateTimeFormat(pattern = "dd/mm/yyyy")
     private Date endDate;
 

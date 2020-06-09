@@ -10,11 +10,14 @@ import java.util.List;
 @FeignClient(name = "library-loan", url = "localhost:9002")
 public interface LibraryLoanClient {
 
+    @GetMapping(value="/loan/{id}")
+    LoanBean selectLoan(@PathVariable int id);
+
     @PostMapping(value = "/loan")
     ResponseEntity<Void> addLoan(@RequestBody LoanBean loan);
 
-    @PutMapping(value = "/loan")
-    void endLoan(@RequestBody LoanBean loan);
+    @PutMapping(value = "/loan/renew")
+    LoanBean renewLoan(@RequestBody LoanBean loan);
 
     @GetMapping(value = "/loanNotReturnedOnTime")
     List<LoanBean> listLoanNotReturnedOnTime();

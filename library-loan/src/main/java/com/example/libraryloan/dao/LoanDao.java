@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface LoanDao extends JpaRepository<Loan, Integer> {
 
+
     List<Loan> findByEndDateLessThanAndReturnedFalse(Date date);
 
     Loan findById(int id);
@@ -17,6 +18,7 @@ public interface LoanDao extends JpaRepository<Loan, Integer> {
     List<Loan> findByUser(int user);
 
     boolean existsByCopyAndReturned(int copy, boolean returned);
+
 
 
 }
