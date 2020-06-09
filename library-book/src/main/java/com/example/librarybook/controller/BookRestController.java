@@ -3,15 +3,18 @@ package com.example.librarybook.controller;
 import com.example.librarybook.dao.BookDao;
 import com.example.librarybook.model.Book;
 import com.example.librarybook.service.BookService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class BookRestController {
+
+    private Logger logger = LoggerFactory.getLogger(BookRestController.class);
+
 
     @Autowired
     private BookService bookService;
@@ -27,5 +30,15 @@ public class BookRestController {
         return bookService.findById(id);
     }
 
+    @GetMapping(value="/books/search/{word}")
+    public List<Book> searchBooks(@PathVariable("word") String word){
+        return bookService.findByString(word);
+    }
 
+    @GetMapping(value = "/book/search")
+    public List<Book> getBooks(@RequestParam(value = "title", required = false, defaultValue="") String title) {
+        List<Book> bookList = bookService.findByString(title);
+        logger.info("Getting list books : " + bookList.size());
+        return bookList;
+    }
 }

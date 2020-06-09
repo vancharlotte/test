@@ -9,8 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +51,14 @@ public class BookController {
         model.addAttribute("nbCopyAvailable", copiesAvailable.size());
 
         return "Book";
+    }
+
+    @GetMapping("/search")
+    public String searchBooks(@RequestParam(name = "word", defaultValue = "") String word, Model model){
+        List<BookBean> books = bookClient.getBooks(word);
+        model.addAttribute("books", books);
+        return "SearchBooks";
+
     }
 
 
