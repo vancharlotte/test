@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -15,21 +16,20 @@ public class Loan {
     @GeneratedValue
     private int id;
 
-  //  @NotEmpty
+    @NotNull
     private int copy;
 
-  //  @NotEmpty
+    @NotNull
     private int user;
 
-   // @NotEmpty
-    @DateTimeFormat(pattern = "dd/mm/yyyy")
+    @NotNull
     private Date startDate;
 
-   // @NotEmpty
-    @DateTimeFormat(pattern = "dd/mm/yyyy")
+    @NotNull
     private Date endDate;
 
     private boolean returned;
+
     private boolean renewed;
 
     public Loan() {

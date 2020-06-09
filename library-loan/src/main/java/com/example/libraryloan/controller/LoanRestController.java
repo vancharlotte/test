@@ -9,11 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import java.sql.Date;
+import java.time.ZoneId;
 import java.util.List;
 
 
@@ -48,19 +51,27 @@ public class LoanRestController {
 
     //renewLoan
     @PutMapping(value = "/loan/renew")
-    public Loan renewLoan(@RequestBody Loan loan){
-        loan.setRenewed(true);
-        logger.info(Boolean.toString(loan.isRenewed()));
-        return loanService.saveOrUpdate(loan);
+    public Loan renewLoan(@Valid @RequestBody Loan loan){
+        return loanService.renew(loan);
+    }
+
+
+    //returnLoan
+    @PutMapping(value = "/loan/return")
+    public Loan returnLoan(@RequestBody Loan loan){
+        return loanService.returnLoan(loan);
     }
 
 
     //listLoanNotReturned
     @GetMapping(value ="/loanNotReturnedOnTime")
     public List<Loan> listLoanNotReturnedOnTime(){
-        LocalDate localDate = LocalDate.now();
-        logger.info(Date.valueOf(localDate).toString());
-        return loanService.findByEndDateLessThanAndReturnedFalse(Date.valueOf(localDate));
+        ZoneId defaultZoneId = ZoneId.of("Europe/Paris");
+        java.util.Date date = Date.from(LocalDate.now().atStartOfDay(defaultZoneId).toInstant());
+        String s = new SimpleDateFormat("dd/MM/yyyy").format(LocalDate.now());
+        logger.info(s);
+
+        return loanService.findByEndDateLessThanAndReturnedFalse(date);
     }
 
     @GetMapping(value ="/loans/{user}")

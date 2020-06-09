@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class LoanService {
     }
 
     public List<Loan> findByEndDateLessThanAndReturnedFalse(Date date){
+
         return loanDao.findByEndDateLessThanAndReturnedFalse(date);
     }
 
@@ -42,4 +44,21 @@ public class LoanService {
         return copyAvailable;
     }
 
+    public Loan renew(Loan loan){
+        if(!loan.isRenewed()){
+            loan.setRenewed(true);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(loan.getEndDate());
+            calendar.add(Calendar.DAY_OF_YEAR, 14);
+            loan.setEndDate(calendar.getTime());
+        }
+
+        return loanDao.save(loan);
+    }
+
+
+    public Loan returnLoan(Loan loan) {
+        loan.setReturned(true);
+        return loanDao.save(loan);
+    }
 }

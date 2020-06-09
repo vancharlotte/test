@@ -3,7 +3,7 @@ package com.example.librarybook.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Copy {
@@ -12,7 +12,7 @@ public class Copy {
     @GeneratedValue
     private int id;
 
-    @NotEmpty
+    @NotNull
     private int book;
 
     public Copy() {

@@ -27,11 +27,10 @@
                 <thead>
                 <tr class="bg-info">
                     <th>Livre</th>
-                    <th>date d'emprunt</th>
-                    <th>date de retour</th>
+                    <th>début</th>
+                    <th>fin</th>
                     <th>le livre a été retourné?</th>
-                    <th>l'emprunt a été prolongé?</th>
-                    <td> Prolongé emprunt?</td>
+                    <th>Prolongé l'emprunt?</th>
 
                 </tr>
                 </thead>
@@ -42,16 +41,20 @@
                         <td th:text="${book.title}"></td>
                     </div>
                     <div th:each="loan : ${entry.key}">
-                        <td th:text="${loan.startDate}"></td>
-                        <td th:text="${loan.endDate}"></td>
-                        <td th:text="${loan.returned}"></td>
-                        <td th:text="${loan.renewed}" th:href="@{/loans}"></td>
+                        <td th:text="${#dates.format(loan.startDate, 'dd-MM-yyyy')}"></td>
+                        <td th:text="${#dates.format(loan.endDate, 'dd-MM-yyyy')}"></td>
+                        <td >
+                            <a th:if="${loan.returned}"> Oui </a>
+                            <a th:unless="${loan.returned}"> Non </a>
+                        </td>
                         <td>
-                            <a th:href="@{/loans/renew/4}">
+                            <a th:if="${loan.renewed}">
+                                <p class="text-secondary">emprunt déjà prolongé</p>
+                            </a>
+                            <a th:unless="${loan.renewed}" th:href="@{/loan/renew/{loanId}(loanId=${loan.id})}">
                                 <button type="button" class="btn btn-primary"> Prolongé</button>
                             </a>
                         </td>
-
                     </div>
                 </tr>
                 </tbody>

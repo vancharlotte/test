@@ -41,12 +41,11 @@ public class LoanController {
 
         model.addAttribute("loans", loans);
         model.addAttribute("map", map);
-
         return "ListLoans";
     }
 
-    @GetMapping( value="/loans/renew/{id}")
-    public String  renewLoan(@PathVariable int id){
+    @GetMapping( value="/loan/renew/{id}")
+    public String renewLoan(@PathVariable int id){
         LoanBean loan =  loanClient.selectLoan(id);
         loanClient.renewLoan(loan);
         logger.info("put loan");

@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -37,7 +38,7 @@ public class User {
     @NotEmpty
     private String phoneNumber;
 
-    @NotEmpty
+    @NotNull
     private int role;
 
     public User() {
