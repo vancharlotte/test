@@ -9,13 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import java.time.LocalDate;
-
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -36,22 +35,35 @@ public class LoanRestController {
     //addLoan
     @PostMapping(value = "/loan")
         public ResponseEntity<Void> addLoan(@RequestBody Loan loan) {
-        Loan loanAdded =   loanService.saveOrUpdate(loan);
-        if (loanAdded == null)
-            return ResponseEntity.noContent().build();
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(loanAdded.getId())
-                .toUri();
-        return ResponseEntity.created(location).build();
+        if (loan == null){
+            return ResponseEntity.noContent().build();}
+
+        else {
+            LocalDate now = LocalDate.now(ZoneId.of("Europe/Paris"));
+            LocalDateTime nowMidnight = LocalDateTime.of(now, LocalTime.MIDNIGHT);
+            Timestamp timestamp = Timestamp.valueOf(nowMidnight);
+            logger.info(timestamp.toString());
+
+            loan.setStartDate(timestamp);
+            loan.setEndDate(Timestamp.valueOf(nowMidnight.plusDays(14)));
+            loan.setReturned(false);
+            loan.setRenewed(false);
+            loanService.saveOrUpdate(loan);
+
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(loan.getId())
+                    .toUri();
+            return ResponseEntity.created(location).build();
+        }
     }
 
 
     //renewLoan
     @PutMapping(value = "/loan/renew")
-    public Loan renewLoan(@Valid @RequestBody Loan loan){
+    public Loan renewLoan(@RequestBody Loan loan){
         return loanService.renew(loan);
     }
 
@@ -66,12 +78,12 @@ public class LoanRestController {
     //listLoanNotReturned
     @GetMapping(value ="/loanNotReturnedOnTime")
     public List<Loan> listLoanNotReturnedOnTime(){
-        ZoneId defaultZoneId = ZoneId.of("Europe/Paris");
-        java.util.Date date = Date.from(LocalDate.now().atStartOfDay(defaultZoneId).toInstant());
-        String s = new SimpleDateFormat("dd/MM/yyyy").format(LocalDate.now());
-        logger.info(s);
+        LocalDate today = LocalDate.now(ZoneId.of("Europe/Paris"));
+        LocalDateTime todayMidnight = LocalDateTime.of(today, LocalTime.MIDNIGHT);
+        Timestamp timestamp = Timestamp.valueOf(todayMidnight);
+        logger.info(timestamp.toString());
 
-        return loanService.findByEndDateLessThanAndReturnedFalse(date);
+        return loanService.findByEndDateLessThanAndReturnedFalse(timestamp);
     }
 
     @GetMapping(value ="/loans/{user}")

@@ -26,7 +26,6 @@ public class LoanService {
     }
 
     public List<Loan> findByEndDateLessThanAndReturnedFalse(Date date){
-
         return loanDao.findByEndDateLessThanAndReturnedFalse(date);
     }
 
