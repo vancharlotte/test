@@ -1,6 +1,6 @@
 package com.example.librarybook.controller;
 
-import com.example.librarybook.dao.BookDao;
+import com.example.librarybook.exception.BookNotFoundException;
 import com.example.librarybook.model.Book;
 import com.example.librarybook.service.BookService;
 import org.slf4j.Logger;
@@ -27,7 +27,9 @@ public class BookRestController {
 
     @GetMapping(value="/books/{id}")
     public Book displayBook(@PathVariable int id) {
-        return bookService.findById(id);
+        Book book = bookService.findById(id);
+        if(book==null) throw new BookNotFoundException("book not found.");
+        return book;
     }
 
     @GetMapping(value="/books/search/{word}")

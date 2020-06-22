@@ -1,5 +1,6 @@
 package com.example.libraryloan.controller;
 
+import com.example.libraryloan.exception.LoanNotFoundException;
 import com.example.libraryloan.model.Loan;
 import com.example.libraryloan.service.LoanService;
 import org.slf4j.Logger;
@@ -29,6 +30,8 @@ public class LoanRestController {
 
     @GetMapping(value="/loan/{id}")
     public Loan selectLoan(@PathVariable int id) {
+        Loan loan = loanService.findById(id);
+        if(loan==null) throw new LoanNotFoundException("loan not found");
         return loanService.findById(id);
     }
 

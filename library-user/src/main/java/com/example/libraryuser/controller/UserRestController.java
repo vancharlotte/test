@@ -1,6 +1,7 @@
 package com.example.libraryuser.controller;
 
 import com.example.libraryuser.dao.UserDao;
+import com.example.libraryuser.exception.UserNotFoundException;
 import com.example.libraryuser.model.User;
 import com.example.libraryuser.service.UserService;
 import org.slf4j.Logger;
@@ -19,7 +20,9 @@ public class UserRestController {
 
     @GetMapping(value = "/user/{id}")
     public User selectUser(@PathVariable int id){
-        return userService.findById(id);
+        User user = userService.findById(id);
+        if(user==null) throw new UserNotFoundException("user not found");
+        return user;
     }
 
     @GetMapping(value = "/user/email/{email}")
