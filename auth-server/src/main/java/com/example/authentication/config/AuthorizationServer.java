@@ -42,7 +42,6 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
         endpoints
                 .tokenStore(tokenStore())
                 .authenticationManager(authenticationManager);
-        // .accessTokenConverter(jwtAccessTokenConverter());
     }
 
     @Bean
@@ -50,16 +49,6 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
         return new JdbcTokenStore(dataSource);
     }
 
-   /* @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtAccessTokenConverter());
-    }
 
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("abc");
-        return converter;
-    }*/
 
 }
