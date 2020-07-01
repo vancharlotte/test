@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+//@RequestMapping("/library-book")
 public class BookRestController {
 
     private Logger logger = LoggerFactory.getLogger(BookRestController.class);
@@ -37,7 +38,7 @@ public class BookRestController {
         return bookService.findByString(word);
     }
 
-    @GetMapping(value = "/book/search")
+    @GetMapping(value = "/books/search")
     public List<Book> getBooks(@RequestParam(value = "title", required = false, defaultValue="") String title) {
         List<Book> bookList = bookService.findByString(title);
         logger.info("Getting list books : " + bookList.size());

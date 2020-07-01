@@ -1,3 +1,5 @@
+SET sql_mode = '';
+
 create table if not exists  oauth_client_details (
   client_id varchar(255) not null,
   client_secret varchar(255) not null,
@@ -13,53 +15,20 @@ create table if not exists  oauth_client_details (
   primary key (client_id)
 ) engine=innodb ;
 
-create table if not exists  permission (
-  id int(11) not null auto_increment,
-  name varchar(512) default null,
-  primary key (id),
-  unique key name (name)
-) engine=innodb ;
-
-create table if not exists role (
-  id int(11) not null auto_increment,
-  name varchar(255) default null,
-  primary key (id),
-  unique key name (name)
-) engine=innodb ;
-
-create table if not exists  user (
+create table if not exists account (
   id int(11) not null auto_increment,
   username varchar(100) not null,
   password varchar(1024) not null,
   email varchar(1024) not null,
   enabled tinyint(4) not null,
-  account_Non_Expired tinyint(4) not null,
-  credentials_Non_Expired tinyint(4) not null,
-  account_Non_Locked tinyint(4) not null,
+  accountNonExpired tinyint(4) not null,
+  credentialsNonExpired tinyint(4) not null,
+  accountNonLocked tinyint(4) not null,
+  roles varchar(1024) not null,
   primary key (id),
   unique key username (username)
 ) engine=innodb ;
 
-
-create table  if not exists permission_role (
-  permission_id int(11) default null,
-  role_id int(11) default null,
-  key permission_id (permission_id),
-  key role_id (role_id),
-  constraint permission_role_ibfk_1 foreign key (permission_id) references permission (id),
-  constraint permission_role_ibfk_2 foreign key (role_id) references role (id)
-) engine=innodb ;
-
-
-
-create table if not exists role_user (
-  role_id int(11) default null,
-  user_id int(11) default null,
-  key role_id (role_id),
-  key user_id (user_id),
-  constraint role_user_ibfk_1 foreign key (role_id) references role (id),
-  constraint role_user_ibfk_2 foreign key (user_id) references user (id)
-) engine=innodb ;
 
 -- token store
 create table if not exists oauth_client_token (
@@ -98,35 +67,3 @@ create table if not exists oauth_approvals (
 	expiresAt TIMESTAMP,
 	lastModifiedAt TIMESTAMP
 );
-
-
-INSERT INTO oauth_client_details (client_id, client_secret, web_server_redirect_uri, scope, access_token_validity, refresh_token_validity, resource_ids, authorized_grant_types, additional_information)
-VALUES ('mobile', '{bcrypt}$2a$10$gPhlXZfms0EpNHX0.HHptOhoFD1AoxSr/yUIdTqA8vtjeP4zi0DDu', 'http://localhost:8080/code', 'READ,WRITE', '3600', '10000', 'inventory,payment', 'authorization_code,password,refresh_token,implicit', '{}');
-
- INSERT INTO PERMISSION (ID, NAME) VALUES
- (1, 'create_profile'),
- (2, 'read_profile'),
- (3 , 'update_profile'),
- (4, 'delete_profile');
-
- INSERT INTO role (ID, NAME) VALUES
-		(1, 'ROLE_admin'),(2, 'ROLE_user');
-
- INSERT INTO PERMISSION_ROLE (PERMISSION_ID, ROLE_ID) VALUES
-     (1,1), /*create-> admin */
-     (2,1), /* read admin */
-     (3,1), /* update admin */
-     (4,1), /* delete admin */
-     (2,2),  /* read operator */
-     (3,2);  /* update operator */
-
-insert into user (id, username,password, email, enabled, account_Non_Expired, credentials_Non_Expired, account_Non_Locked)
-VALUES ('1', 'user1','{bcrypt}$2y$12$NwDzlGjs6hQwFx4tOlKl5u2KOkvTBnzmlpFMmgHTVS1Oc4Mx695Ua', 'user1@gmail.com', '1', '1', '1', '1');
-insert into user (id, username,password, email, enabled, account_Non_Expired, credentials_Non_Expired, account_Non_Locked)
-VALUES ('2', 'user2', '{bcrypt}$2y$12$NwDzlGjs6hQwFx4tOlKl5u2KOkvTBnzmlpFMmgHTVS1Oc4Mx695Ua','user2@gmail.com', '1', '1', '1', '1');
-
-INSERT INTO ROLE_USER (ROLE_ID, USER_ID)
-    VALUES
-    (1, 1) /* user1 admin */,
-    (2, 2) /* user2 user */ ;
-
