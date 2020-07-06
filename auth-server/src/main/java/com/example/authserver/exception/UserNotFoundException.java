@@ -1,4 +1,4 @@
-package com.example.libraryuser.exception;
+package com.example.authserver.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

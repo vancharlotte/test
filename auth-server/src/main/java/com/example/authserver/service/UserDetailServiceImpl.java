@@ -16,12 +16,12 @@ import java.util.Optional;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<Account> optionalUser = accountRepository.findByUsername(username);
+        Optional<Account> optionalUser = accountService.findByUsername(username);
 
         optionalUser.orElseThrow(() -> new UsernameNotFoundException("Username or password wrong"));
 
