@@ -79,7 +79,7 @@ public class LoanRestController {
 
 
     //listLoanNotReturned
-    @GetMapping(value ="/loanNotReturnedOnTime")
+    @GetMapping(value ="/batch/loanNotReturnedOnTime")
     public List<Loan> listLoanNotReturnedOnTime(){
         LocalDate today = LocalDate.now(ZoneId.of("Europe/Paris"));
         LocalDateTime todayMidnight = LocalDateTime.of(today, LocalTime.MIDNIGHT);

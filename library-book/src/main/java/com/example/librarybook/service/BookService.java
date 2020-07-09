@@ -15,7 +15,6 @@ public class BookService {
     private BookDao bookDao;
 
     public  List<Book> findAll(){
-        System.out.println("prout");
         return bookDao.findAll();
     }
 

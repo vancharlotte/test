@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="eureka-server" />
+        <module name="config-server" />
+        <module name="auth-server" />
+        <module name="clientui" />
+        <module name="zuul-server" />
+        <module name="library-book" />
+        <module name="library-loan" />
+        <module name="library-batch" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="auth-server" target="1.8" />
+      <module name="authentication" target="1.8" />
+      <module name="authserver" target="1.8" />
+      <module name="clientui" target="1.8" />
+      <module name="config-server" target="1.8" />
+      <module name="eureka-server" target="1.8" />
+      <module name="library-account" target="1.8" />
+      <module name="library-batch" target="1.8" />
+      <module name="library-book" target="1.8" />
+      <module name="library-loan" target="1.8" />
+      <module name="library-role" target="1.8" />
+      <module name="zuul-server" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="auth-server" options="-parameters" />
+      <module name="authentication" options="-parameters" />
+      <module name="authserver" options="-parameters" />
+      <module name="clientui" options="-parameters" />
+      <module name="config-server" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
+      <module name="library-account" options="-parameters" />
+      <module name="library-batch" options="-parameters" />
+      <module name="library-book" options="-parameters" />
+      <module name="library-loan" options="-parameters" />
+      <module name="library-role" options="-parameters" />
+      <module name="zuul-server" options="-parameters" />
+    </option>
+  </component>
+</project>
