@@ -78,7 +78,7 @@ public class BatchConfig {
 
     // job lauch every day at 01:00
     @Scheduled(cron = "0 0 1 * * ?")
-    public void lauchJob() throws Exception {
+    public void launchJob() throws Exception {
         Map<String, JobParameter> params = new HashMap<>();
         params.put("time", new JobParameter(System.currentTimeMillis()));
         JobParameters jobParameters = new JobParameters(params);
