@@ -77,7 +77,7 @@ public class LoanRestController {
 
     //returnLoan
     @PutMapping(value = "/loan/return")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     public Loan returnLoan(@RequestBody Loan loan){
         return loanService.returnLoan(loan);
     }
@@ -95,7 +95,7 @@ public class LoanRestController {
     }
 
     @GetMapping(value ="/loans/{user}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<Loan> listLoans(@PathVariable int user){
         System.out.println("prout");
         return loanService.findByUser(user);
