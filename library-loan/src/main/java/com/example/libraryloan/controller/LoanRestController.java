@@ -95,7 +95,7 @@ public class LoanRestController {
     }
 
     @GetMapping(value ="/loans/{user}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     public List<Loan> listLoans(@PathVariable int user){
         System.out.println("prout");
         return loanService.findByUser(user);
