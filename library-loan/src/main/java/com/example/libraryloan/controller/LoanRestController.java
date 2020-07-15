@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -29,6 +30,7 @@ public class LoanRestController {
     LoanService loanService;
 
     @GetMapping(value="/loan/{id}")
+    @PreAuthorize("hasAuthority('USER')")
     public Loan selectLoan(@PathVariable int id) {
         Loan loan = loanService.findById(id);
         if(loan==null) throw new LoanNotFoundException("loan not found");
@@ -37,7 +39,8 @@ public class LoanRestController {
 
     //addLoan
     @PostMapping(value = "/loan")
-        public ResponseEntity<Void> addLoan(@RequestBody Loan loan) {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Void> addLoan(@RequestBody Loan loan) {
 
         if (loan == null){
             return ResponseEntity.noContent().build();}
@@ -66,6 +69,7 @@ public class LoanRestController {
 
     //renewLoan
     @PutMapping(value = "/loan/renew")
+    @PreAuthorize("hasAuthority('USER')")
     public Loan renewLoan(@RequestBody Loan loan){
         return loanService.renew(loan);
     }
@@ -73,6 +77,7 @@ public class LoanRestController {
 
     //returnLoan
     @PutMapping(value = "/loan/return")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Loan returnLoan(@RequestBody Loan loan){
         return loanService.returnLoan(loan);
     }
@@ -90,11 +95,14 @@ public class LoanRestController {
     }
 
     @GetMapping(value ="/loans/{user}")
+    @PreAuthorize("hasAuthority('USER')")
     public List<Loan> listLoans(@PathVariable int user){
+        System.out.println("prout");
         return loanService.findByUser(user);
     }
 
     @GetMapping(value ="/books/{copy}")
+    @PreAuthorize("hasAuthority('USER')")
     public boolean copyAvailable(@PathVariable int copy){
         return loanService.copyAvailable(copy);
     }

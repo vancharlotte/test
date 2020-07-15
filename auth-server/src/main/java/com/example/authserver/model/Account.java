@@ -46,11 +46,11 @@ public class Account implements Serializable {
     private String phoneNumber;
     @Column(name = "enabled")
     private boolean enabled;
-    @Column(name = "accountNonExpired")
+    @Column(name = "account_Non_Expired")
     private boolean accountNonExpired;
-    @Column(name = "credentialsNonExpired")
+    @Column(name = "credentials_Non_Expired")
     private boolean credentialsNonExpired;
-    @Column(name = "accountNonLocked")
+    @Column(name = "account_Non_Locked")
     private boolean accountNonLocked;
     @Column(name = "roles")
     private String roles;

@@ -1,4 +1,4 @@
-INSERT INTO book
+INSERT INTO dbbook.book
 (id, title, author, genre, language, editor, summary, release_date )
 VALUES
 (1, 'La jeune fille et la nuit','Guillaume Musso', 'thriller', 'français', 'Calmann-Lévy', 'Un campus prestigieux figé sous la neige. Trois amis liés par un secret tragique. Une jeune fille emportée par la nuit.', '24/04/2018' ),
@@ -12,7 +12,7 @@ VALUES
 (9, 'Livre5','auteur', 'conte', 'français', 'editeur', 'resume du livre', '01/01/2020' ),
 (10, 'Livre7','auteur', 'roman', 'français', 'editeur', 'resume du livre', '01/01/2020' );
 
-INSERT INTO copy
+INSERT INTO dbbook.copy
 (id, book)
 VALUES
 (1,1),

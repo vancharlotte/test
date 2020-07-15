@@ -5,7 +5,7 @@ VALUES
 
 
 INSERT INTO Account
-(id, username, firstName, lastName, password, email, phoneNumber, roles, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked)
+(id, username, firstName, lastName, password, email, phoneNumber, roles, enabled, account_Non_Expired, credentials_Non_Expired, account_Non_Locked)
 VALUES
 (1, 'admin','Jean', 'Lastname', '{noop}123', 'admin@aaa.com', '0111111111', 'ADMIN,USER', '1', '1', '1', '1' ),
 (2, 'user', 'Paul', 'Lastname', '{noop}123', 'user@aaa.com', '0222222222', 'USER', '1', '1', '1', '1' ),

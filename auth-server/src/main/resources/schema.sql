@@ -24,9 +24,9 @@ create table if not exists account (
   lastName varchar(100) not null,
   phoneNumber varchar(10) not null,
   enabled tinyint(4) not null,
-  accountNonExpired tinyint(4) not null,
-  credentialsNonExpired tinyint(4) not null,
-  accountNonLocked tinyint(4) not null,
+  account_Non_Expired tinyint(4) not null,
+  credentials_Non_Expired tinyint(4) not null,
+  account_Non_Locked tinyint(4) not null,
   roles varchar(1024) not null,
   primary key (id),
   unique key username (username)
