@@ -6,8 +6,10 @@ import com.example.librarybook.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +31,14 @@ public class BookRestController {
         return bookService.findAll();
     }
 
+    @GetMapping("/books/search")
+    @PreAuthorize("hasAuthority('USER')")
+    public List<Book> searchBooks(@RequestParam(value = "word", required = false, defaultValue = "") String word) {
+        List<Book> listBooks = bookService.findByString(word);
+        return listBooks;
+    }
+
+
     @GetMapping(value="/books/{id}")
     @PreAuthorize("hasAuthority('USER')")
     public Book displayBook(@PathVariable int id) {
@@ -37,17 +47,23 @@ public class BookRestController {
         return book;
     }
 
-    @GetMapping(value="/books/search/{word}")
+
+    @GetMapping(value = "/books/search/page/{pageNo}")
     @PreAuthorize("hasAuthority('USER')")
-    public List<Book> searchBooks(@PathVariable("word") String word){
-        return bookService.findByString(word);
+    List<Book> getBooks(@PathVariable(value = "pageNo") int pageNo,
+                            @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize,
+                            @RequestParam(value = "word", required = false, defaultValue = "") String word) {
+        Page<Book> page = bookService.findSearchPaginated(word, pageNo, pageSize);
+        return page.getContent();
     }
 
-    @GetMapping(value = "/books/search")
+
+
+    @GetMapping("/books/page/{pageNo}")
     @PreAuthorize("hasAuthority('USER')")
-    public List<Book> getBooks(@RequestParam(value = "title", required = false, defaultValue="") String title) {
-        List<Book> bookList = bookService.findByString(title);
-        logger.info("Getting list books : " + bookList.size());
-        return bookList;
+    public List<Book> findBooksPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                         @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        Page<Book> page = bookService.findPaginated(pageNo, pageSize);
+        return page.getContent();
     }
 }
