@@ -21,8 +21,14 @@ logging:
         type: trace
 
 
+
 security:
   oauth2:
     client:
       client-id: client
       client-secret: secret
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:9102/eureka/
