@@ -26,13 +26,13 @@ public class BookRestController {
 
 
     @GetMapping(value ="/books", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAuthority('USER')")
+    //    @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     public List<Book> listBooks (){
         return bookService.findAll();
     }
 
     @GetMapping("/books/search")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     public List<Book> searchBooks(@RequestParam(value = "word", required = false, defaultValue = "") String word) {
         List<Book> listBooks = bookService.findByString(word);
         return listBooks;
@@ -40,7 +40,7 @@ public class BookRestController {
 
 
     @GetMapping(value="/books/{id}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     public Book displayBook(@PathVariable int id) {
         Book book = bookService.findById(id);
         if(book==null) throw new BookNotFoundException("book not found.");
@@ -49,7 +49,7 @@ public class BookRestController {
 
 
     @GetMapping(value = "/books/search/page/{pageNo}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     List<Book> getBooks(@PathVariable(value = "pageNo") int pageNo,
                             @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize,
                             @RequestParam(value = "word", required = false, defaultValue = "") String word) {
@@ -60,7 +60,7 @@ public class BookRestController {
 
 
     @GetMapping("/books/page/{pageNo}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     public List<Book> findBooksPaginated(@PathVariable (value = "pageNo") int pageNo,
                                          @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         Page<Book> page = bookService.findPaginated(pageNo, pageSize);

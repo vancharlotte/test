@@ -18,14 +18,14 @@ public class CopyRestController {
     //list of copies for one book
     //exception : not found ou empty
     @GetMapping(value = "/copies/{book}")
-    @PreAuthorize("hasAuthority('USER')")
+   // @PreAuthorize("hasAuthority('USER')")
     public List<Copy> listCopies(@PathVariable int book) {
         return copyService.findByBook(book);
     }
 
     // select one copy
     @GetMapping(value = "/copy/{id}")
-    @PreAuthorize("hasAuthority('USER')")
+   // @PreAuthorize("hasAuthority('USER')")
     public Copy selectCopy(@PathVariable int id) {
         Copy copy = copyService.findById(id);
         if (copy==null) throw new CopyNotFoundException ("copy not found");

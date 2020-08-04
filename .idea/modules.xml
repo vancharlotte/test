@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/library-batch/library-batch.iml" filepath="$PROJECT_DIR$/library-batch/library-batch.iml" />
       <module fileurl="file://$PROJECT_DIR$/library-book/library-book.iml" filepath="$PROJECT_DIR$/library-book/library-book.iml" />
       <module fileurl="file://$PROJECT_DIR$/library-loan/library-loan.iml" filepath="$PROJECT_DIR$/library-loan/library-loan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library-user/library-user.iml" filepath="$PROJECT_DIR$/library-user/library-user.iml" />
       <module fileurl="file://$PROJECT_DIR$/zuul-server/zuul-server.iml" filepath="$PROJECT_DIR$/zuul-server/zuul-server.iml" />
     </modules>
   </component>

@@ -6,13 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="eureka-server" />
-        <module name="config-server" />
-        <module name="auth-server" />
-        <module name="clientui" />
         <module name="zuul-server" />
-        <module name="library-book" />
+        <module name="config-server" />
+        <module name="library-user" />
+        <module name="auth-server" />
         <module name="library-loan" />
+        <module name="clientui" />
+        <module name="library-book" />
+        <module name="eureka-server" />
         <module name="library-batch" />
       </profile>
     </annotationProcessing>
@@ -28,6 +29,7 @@
       <module name="library-book" target="1.8" />
       <module name="library-loan" target="1.8" />
       <module name="library-role" target="1.8" />
+      <module name="library-user" target="1.8" />
       <module name="zuul-server" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -44,6 +46,7 @@
       <module name="library-book" options="-parameters" />
       <module name="library-loan" options="-parameters" />
       <module name="library-role" options="-parameters" />
+      <module name="library-user" options="-parameters" />
       <module name="zuul-server" options="-parameters" />
     </option>
   </component>
