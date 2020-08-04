@@ -26,13 +26,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/oauth/authorize**", "/login**", "/error**").permitAll()
+                .csrf()
+                .and()
+                .headers().httpStrictTransportSecurity().preload(true)
+                .maxAgeInSeconds(0)
+                .includeSubDomains(true);
+
+
+        http.authorizeRequests()
+                .antMatchers("/oauth/authorize**", "/oauth/access_token**", "/login**", "/error**")
+                .permitAll()
                 .and()
                 .formLogin().permitAll();
+
     }
-
-
     @Bean
     protected AuthenticationManager getAuthenticationManager() throws Exception {
         return super.authenticationManagerBean();
@@ -43,12 +50,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    PasswordEncoder passwordEncoder=PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-       // auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("123")).roles("USER","ADMIN")
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        // auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("123")).roles("USER","ADMIN")
 
     }
 }

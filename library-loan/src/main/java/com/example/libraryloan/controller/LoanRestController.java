@@ -30,7 +30,7 @@ public class LoanRestController {
     LoanService loanService;
 
     @GetMapping(value="/loan/{id}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     public Loan selectLoan(@PathVariable int id) {
         Loan loan = loanService.findById(id);
         if(loan==null) throw new LoanNotFoundException("loan not found");
@@ -39,7 +39,7 @@ public class LoanRestController {
 
     //addLoan
     @PostMapping(value = "/loan")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     public ResponseEntity<Void> addLoan(@RequestBody Loan loan) {
 
         if (loan == null){
@@ -69,7 +69,7 @@ public class LoanRestController {
 
     //renewLoan
     @PutMapping(value = "/loan/renew")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     public Loan renewLoan(@RequestBody Loan loan){
         return loanService.renew(loan);
     }
@@ -77,7 +77,7 @@ public class LoanRestController {
 
     //returnLoan
     @PutMapping(value = "/loan/return")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Loan returnLoan(@RequestBody Loan loan){
         return loanService.returnLoan(loan);
     }
@@ -95,13 +95,13 @@ public class LoanRestController {
     }
 
     @GetMapping(value ="/loans/{user}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     public List<Loan> listLoans(@PathVariable int user){
         return loanService.findByUser(user);
     }
 
-    @GetMapping(value ="/books/{copy}")
-    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping(value = "/books/copyAvailable{copy}")
+    @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     public boolean copyAvailable(@PathVariable int copy){
         return loanService.copyAvailable(copy);
     }

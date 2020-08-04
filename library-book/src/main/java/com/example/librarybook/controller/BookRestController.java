@@ -39,7 +39,7 @@ public class BookRestController {
     }
 
 
-    @GetMapping(value="/books/{id}")
+    @GetMapping(value="/books/select/{id}")
     @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     public Book displayBook(@PathVariable int id) {
         Book book = bookService.findById(id);

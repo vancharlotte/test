@@ -48,7 +48,6 @@ public class AccountController {
 
     @DeleteMapping(value = "/revokeToken")
     public void revokeToken(String token) {
-
     }
 
 
