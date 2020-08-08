@@ -100,7 +100,7 @@ public class LoanRestController {
         return loanService.findByUser(user);
     }
 
-    @GetMapping(value = "/books/copyAvailable{copy}")
+    @GetMapping(value = "/loans/copyAvailable{copy}")
     @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     public boolean copyAvailable(@PathVariable int copy){
         return loanService.copyAvailable(copy);

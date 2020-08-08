@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
+//@FeignClient(name = "zuul-server")
 @FeignClient(name = "library-loan", url = "http://localhost:9002/")
 public interface LoanProxy {
 
