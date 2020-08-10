@@ -50,7 +50,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

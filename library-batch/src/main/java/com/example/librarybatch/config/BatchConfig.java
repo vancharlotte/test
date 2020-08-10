@@ -8,29 +8,25 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.json.JacksonJsonObjectReader;
-import org.springframework.batch.item.json.JsonItemReader;
-import org.springframework.batch.item.json.builder.JsonItemReaderBuilder;
+import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.UrlResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordResourceDetails;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
 @EnableBatchProcessing
 @EnableScheduling
+
 public class BatchConfig {
 
     @Autowired
@@ -48,9 +44,12 @@ public class BatchConfig {
     @Autowired
     JobLauncher jobLauncher;
 
+    @Autowired
+    LoanProxy loanProxy;
 
-    @Bean
-    public Job mailJob() throws MalformedURLException {
+
+   @Bean
+    public Job mailJob() throws IOException {
         System.out.println("mail job");
         Step step1 = stepBuilderFactory.get("step-send-email")
                 .<LoanBean, LoanBean>chunk(100)
@@ -64,17 +63,10 @@ public class BatchConfig {
     }
 
     @Bean
-    public JsonItemReader<LoanBean> loanExpiredItemReader() throws MalformedURLException {
-        URL resource = new URL("http://localhost:9002/batch/loanNotReturnedOnTime");
-
+    public ListItemReader<LoanBean> loanExpiredItemReader() throws IOException {
         System.out.println("item reader");
-        return new JsonItemReaderBuilder<LoanBean>()
-                .name("loanExpiredItemReader")
-                .resource(new UrlResource(resource))
-                .jsonObjectReader(new JacksonJsonObjectReader<>(LoanBean.class))
-                .build();
+        return new ListItemReader<>(loanProxy.listLoanNotReturnedOnTime());
     }
-
 
     // job lauch every day at 01:00
     @Scheduled(cron = "0 0 1 * * ?")
