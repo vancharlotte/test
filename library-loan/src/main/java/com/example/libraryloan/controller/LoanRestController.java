@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 import java.sql.Timestamp;
@@ -37,10 +38,10 @@ public class LoanRestController {
         return loanService.findById(id);
     }
 
-    //addLoan
+    //addLoan (for now, new loan added by employee only)
     @PostMapping(value = "/loan")
-    @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
-    public ResponseEntity<Void> addLoan(@RequestBody Loan loan) {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Void> addLoan(@Valid @RequestBody Loan loan) {
 
         if (loan == null){
             return ResponseEntity.noContent().build();}
@@ -70,15 +71,15 @@ public class LoanRestController {
     //renewLoan
     @PutMapping(value = "/loan/renew")
     @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
-    public Loan renewLoan(@RequestBody Loan loan){
+    public Loan renewLoan(@Valid @RequestBody Loan loan){
         return loanService.renew(loan);
     }
 
 
-    //returnLoan
+    //returnLoan (for now, loan returned by employee only)
     @PutMapping(value = "/loan/return")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Loan returnLoan(@RequestBody Loan loan){
+    public Loan returnLoan(@Valid @RequestBody Loan loan) {
         return loanService.returnLoan(loan);
     }
 
@@ -101,7 +102,7 @@ public class LoanRestController {
         return loanService.findByUser(user);
     }
 
-    @GetMapping(value = "/loans/copyAvailable{copy}")
+    @GetMapping(value = "/loans/copyAvailable/{copy}")
     @PreAuthorize("hasAuthority('ADMIN')" + "|| hasAuthority('USER')")
     public boolean copyAvailable(@PathVariable int copy){
         return loanService.copyAvailable(copy);

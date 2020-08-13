@@ -39,14 +39,6 @@ public class AccountController {
         return account.get();
     }
 
-    @GetMapping(value = "/user/me")
-    public Principal user(Principal principal) {
-        return principal;
-    }
-
-    @DeleteMapping(value = "/revokeToken")
-    public void revokeToken(String token) {
-    }
 
 
 }

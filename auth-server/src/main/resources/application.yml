@@ -44,7 +44,6 @@ security:
       token-type: bearer
 
 
-
 eureka:
   client:
     fetch-registry: true
