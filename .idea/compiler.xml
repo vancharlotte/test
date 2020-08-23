@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="zuul-server" />
         <module name="config-server" />
-        <module name="library-user" />
         <module name="auth-server" />
         <module name="library-loan" />
         <module name="clientui" />
