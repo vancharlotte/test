@@ -51,8 +51,8 @@ spring.datasource.url=jdbc:mysql://localhost:3306/dbbook?createDatabaseIfNotExis
 
 Dans votre navigateur, vous pouvez accéder au site web à l'adresse http://localhost:8000/.   
 comptes présents dans la bdd pour tester : 
-    * username : admin, mdp : 123 
-    * username : user, mdp : 123 
+* username : admin, mdp : 123 
+* username : user, mdp : 123 
 
 Vous pouvez modifier le port d'un module dans le fichier src/main/resources/application.properties du module concerné.   
 Les ports ont été pré-défini pour chaque microservice : 
