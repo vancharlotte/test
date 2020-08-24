@@ -24,23 +24,21 @@ Cette application a été développé avec :
 
 
 ### Déploiement
-##### 1 - Importez tous les microservices du repository.
+##### 1 - Importez tous les microservices du repository "projet7-biblio" et du repository "projet7-client".
 
-##### 2 - Créez les 3 bases de données et un utlisateur : 
+##### 2 - Créez les 3 bases de données et un utilisateur : 
 - dbauth pour le microservice auth-server
 - dbbook pour le microservice library-book
 - dbloan pour le microservice library-loan
-Les scripts des BDD se trouvent dans le dossier "livrable".
- (créer le dossier)
- (vérifier si les datas de auth server se placent dans bdd au démarrage de l'app)
+- user : 
+    *   username : admin
+    *   mot de passe : admin123!
 
+Les scripts des BDD se trouvent dans le dossier "livrables" du repository "projet7-biblio".   
 Vous pouvez modifier la configuration des bases de données dans le fichier src/main/resources/application.properties
 du module concerné.
 
 Pré défini : 
-- utilisateur 
-	- username : admin
-	- mot de passe : admin123!
 - url de la bdd du module auth-server  
 spring.datasource.url=jdbc:mysql://localhost:3306/dbauth?createDatabaseIfNotExist=true
 - url de la bdd du module library-loan  
