@@ -11,14 +11,18 @@
     <groupId>com.example</groupId>
     <artifactId>library-loan</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>library book</name>
+    <name>library loan</name>
     <description>microservice loan</description>
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR5</spring-cloud.version>
     </properties>
-    <dependencies>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>

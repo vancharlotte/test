@@ -56,7 +56,7 @@ comptes présents dans la bdd pour tester :
 
 Vous pouvez modifier le port d'un module dans le fichier src/main/resources/application.properties du module concerné.   
 Les ports ont été pré-défini pour chaque microservice : 
-- eureka : port 8761
+- eureka-server : port 8761
 - auth-server : port 9191
 - library-book : port 9001
 - library-loan : port 9002
