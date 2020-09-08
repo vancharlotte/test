@@ -24,7 +24,9 @@ Cette application a été développé avec :
 
 
 ### Déploiement
-##### 1 - Importez tous les microservices du repository "projet7-biblio" et du repository "projet7-client".
+##### 1 - Importez tous les microservices du repository "projet7-biblio" et du repository "projet7-client".    
+
+Placez-vous à la racine des projets puis lancez un maven clean puis install.
 
 ##### 2 - Créez les 3 bases de données et un utilisateur : 
 - dbauth pour le microservice auth-server
@@ -49,7 +51,10 @@ spring.datasource.url=jdbc:mysql://localhost:3306/dbbook?createDatabaseIfNotExis
 
 ##### 3 - Lancez l'application : démarrez "library-eureka" en premier et "library-batch" et "library-client" en dernier.
 
-Dans votre navigateur, vous pouvez accéder au site web à l'adresse http://localhost:8000/.   
+Avant de lancer l'application, vous pouvez modifier la configuration des microservices dans le repository : 
+https://github.com/vancharlotte/config-server-repo.git
+
+Dans votre navigateur, vous pouvez accéder au site web à l'adresse http://localhost:8000/.     
 comptes présents dans la bdd pour tester : 
 * username : admin, mdp : 123 
 * username : user, mdp : 123 
@@ -63,5 +68,6 @@ Les ports ont été pré-défini pour chaque microservice :
 - zuul-server : port 9004
 - library-batch : port 9005
 - library-client : port 8000.
+
 
 
