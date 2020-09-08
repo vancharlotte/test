@@ -26,7 +26,7 @@ Cette application a été développé avec :
 ### Déploiement
 ##### 1 - Importez tous les microservices du repository "projet7-biblio" et du repository "projet7-client".    
 
-Placez-vous à la racine des projets puis lancez un maven clean puis install.
+Placez-vous à la racine des projets puis lancez un maven install.
 
 ##### 2 - Créez les 3 bases de données et un utilisateur : 
 - dbauth pour le microservice auth-server
@@ -68,6 +68,3 @@ Les ports ont été pré-défini pour chaque microservice :
 - zuul-server : port 9004
 - library-batch : port 9005
 - library-client : port 8000.
-
-
-
