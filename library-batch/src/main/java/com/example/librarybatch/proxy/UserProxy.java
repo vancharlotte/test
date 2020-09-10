@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RibbonClient(name = "auth-server")
 public interface UserProxy {
 
-        @GetMapping(value = "/auth-server/batch/account/{id}")
+    @GetMapping(value = "/auth-server/batch/account/{id}")
     AccountBean selectAccount(@PathVariable int id);
 
 

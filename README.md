@@ -49,7 +49,9 @@ spring.datasource.url=jdbc:mysql://localhost:3306/dbloan?createDatabaseIfNotExis
 spring.datasource.url=jdbc:mysql://localhost:3306/dbbook?createDatabaseIfNotExist=true
 
 
-##### 3 - Lancez l'application : démarrez "library-eureka" en premier et "library-batch" et "library-client" en dernier.
+##### 3 - Lancez tous les modules de l'application.    
+
+Démarrez "config-server" et "eureka-server" en premier et "library-batch" et "library-client" en dernier.     
 
 Avant de lancer l'application, vous pouvez modifier la configuration des microservices dans le repository : 
 https://github.com/vancharlotte/config-server-repo.git

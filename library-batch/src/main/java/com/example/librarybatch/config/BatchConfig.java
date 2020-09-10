@@ -11,6 +11,9 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -19,6 +22,7 @@ import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordResourceDetails;
 
+import javax.mail.Session;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,8 +52,11 @@ public class BatchConfig {
     LoanProxy loanProxy;
 
 
-   @Bean
+    @Bean
+   @CacheEvict(value = {"loan"}, allEntries = true)
     public Job mailJob() throws IOException {
+
+
         System.out.println("mail job");
         Step step1 = stepBuilderFactory.get("step-send-email")
                 .<LoanBean, LoanBean>chunk(100)
@@ -68,7 +75,7 @@ public class BatchConfig {
         return new ListItemReader<>(loanProxy.listLoanNotReturnedOnTime());
     }
 
-    // job lauch every day at 01:00
+    // job launch every day at 01:00
     @Scheduled(cron = "0 0 1 * * ?")
     public void launchJob() throws Exception {
         Map<String, JobParameter> params = new HashMap<>();
