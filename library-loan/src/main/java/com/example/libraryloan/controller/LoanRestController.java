@@ -53,7 +53,7 @@ public class LoanRestController {
             logger.info(timestamp.toString());
 
             loan.setStartDate(timestamp);
-            loan.setEndDate(Timestamp.valueOf(nowMidnight.plusDays(14)));
+            loan.setEndDate(Timestamp.valueOf(nowMidnight.plusDays(28)));
             loan.setReturned(false);
             loan.setRenewed(false);
             loanService.saveOrUpdate(loan);

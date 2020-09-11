@@ -51,7 +51,7 @@ public class LoanService {
             loan.setRenewed(true);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(loan.getEndDate());
-            calendar.add(Calendar.DAY_OF_YEAR, 14);
+            calendar.add(Calendar.DAY_OF_YEAR, 28);
             loan.setEndDate(calendar.getTime());
         }
 
