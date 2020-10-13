@@ -4,7 +4,7 @@ VALUES
 ('batch', '{noop}secret', 'http://localhost:9005/login', 'READ', '3600', '10000', 'library-loan', 'client_credentials', 'true', '{}');
 
 
-INSERT INTO Account
+INSERT INTO account
 (id, username, firstName, lastName, password, email, phoneNumber, roles, enabled, account_Non_Expired, credentials_Non_Expired, account_Non_Locked)
 VALUES
 (1, 'admin','Jean', 'Lastname', '{bcrypt}$2y$12$dspd2mG2WbRCo0CI2e92vOe1JxnOv.V4Pvp2e2drjN.kofrkkaJnG', 'admin@aaa.com', '0111111111', 'ADMIN,USER', '1', '1', '1', '1' ),
