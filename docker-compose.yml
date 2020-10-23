@@ -1,7 +1,14 @@
 version: '3'
 services:
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - library-network
+
   db:
-    image: mysql:5.7
+    image: bitnami/mysql:latest
     container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -10,6 +17,11 @@ services:
       MYSQL_PASSWORD: admin123!
     ports:
       - "6033:3306"
+    volumes:
+      - ./livrables/dbauth:/docker-entrypoint-initdb.d
+    networks:
+      - library-network
+
 
   config-server:
     image: config-server
@@ -18,7 +30,7 @@ services:
       context: ./config-server
       dockerfile: Dockerfile
     ports:
-    - "9101:9101"
+      - "9101:9101"
     expose:
       - "9101"
     networks:
@@ -56,15 +68,83 @@ services:
     expose:
       - "9191"
     environment:
-      WAIT_HOSTS : db:3306, eureka-server:8761, config-server:9101
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/dbauth?createDatabaseIfNotExist=true
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: admin123!
+      WAIT_HOSTS: config-server:9101, eureka-server:8761, db:3306
+    networks:
+      - library-network
+
+  library-book:
+    depends_on:
+      - config-server
+      - eureka-server
+      - db
+    image: library-book
+    container_name: library-book
+    build:
+      context: ./library-book
+      dockerfile: Dockerfile
+    ports:
+      - "9001:9001"
+    expose:
+      - "9001"
+    environment:
+      WAIT_HOSTS: config-server:9101, eureka-server:8761, db:3306
+    networks:
+      - library-network
+
+  library-loan:
+    depends_on:
+      - config-server
+      - eureka-server
+      - db
+    image: library-loan
+    container_name: library-loan
+    build:
+      context: ./library-loan
+      dockerfile: Dockerfile
+    ports:
+      - "9002:9002"
+    expose:
+      - "9002"
+    environment:
+      WAIT_HOSTS: config-server:9101, eureka-server:8761, db:3306
+    networks:
+      - library-network
+
+  zuul-server:
+    depends_on:
+      - config-server
+      - eureka-server
+    image: zuul-server
+    container_name: zuul-server
+    build:
+      context: ./zuul-server
+      dockerfile: Dockerfile
+    ports:
+      - "9004:9004"
+    expose:
+      - "9004"
+    environment:
+      WAIT_HOSTS: config-server:9101, eureka-server:8761
+    networks:
+      - library-network
+
+  client-ui:
+    depends_on:
+      - config-server
+      - eureka-server
+    image: client-ui
+    container_name: client-ui
+    build:
+      context: ./client-ui
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    environment:
+      WAIT_HOSTS: config-server:9101, eureka-server:8761
     networks:
       - library-network
 
 networks:
   library-network:
-
-
-

@@ -23,6 +23,8 @@
         <module>library-loan</module>
         <module>zuul-server</module>
         <module>library-batch</module>
+        <module>client-ui</module>
+
     </modules>
 
     <name>library</name>
