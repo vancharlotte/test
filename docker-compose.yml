@@ -77,6 +77,7 @@ services:
       - config-server
       - eureka-server
       - db
+      - auth-server
     image: library-book
     container_name: library-book
     build:
@@ -96,6 +97,7 @@ services:
       - config-server
       - eureka-server
       - db
+      - auth-server
     image: library-loan
     container_name: library-loan
     build:
@@ -114,6 +116,9 @@ services:
     depends_on:
       - config-server
       - eureka-server
+      - auth-server
+      - library-book
+      - library-loan
     image: zuul-server
     container_name: zuul-server
     build:
@@ -132,6 +137,7 @@ services:
     depends_on:
       - config-server
       - eureka-server
+      - auth-server
     image: client-ui
     container_name: client-ui
     build:
@@ -142,7 +148,7 @@ services:
     expose:
       - "8000"
     environment:
-      WAIT_HOSTS: config-server:9101, eureka-server:8761
+      WAIT_HOSTS: config-server:9101, eureka-server:8761, auth-server:9191
     networks:
       - library-network
 
