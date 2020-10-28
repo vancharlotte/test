@@ -1,0 +1,15 @@
+com\example\clientui\beans\BookBean.class
+com\example\clientui\beans\CopyBean.class
+com\example\clientui\ClientUiApplication.class
+com\example\clientui\client\LibraryLoanClient.class
+com\example\clientui\controller\BookController.class
+com\example\clientui\config\SpringSecurity.class
+com\example\clientui\client\LibraryAccountClient.class
+com\example\clientui\client\LibraryBookClient.class
+com\example\clientui\controller\WelcomeController.class
+com\example\clientui\config\FeignInterceptor.class
+com\example\clientui\config\FeignErrorDecoder.class
+com\example\clientui\controller\LoanController.class
+com\example\clientui\beans\AccountBean.class
+com\example\clientui\beans\LoanBean.class
+com\example\clientui\controller\ErrorControllerImpl.class

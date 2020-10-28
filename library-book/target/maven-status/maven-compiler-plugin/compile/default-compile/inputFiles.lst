@@ -1,0 +1,13 @@
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\exception\CopyNotFoundException.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\service\BookService.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\controller\BookRestController.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\dao\BookDao.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\config\SwaggerConfig.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\dao\CopyDao.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\model\Copy.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\LibraryBookApplication.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\model\Book.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\service\CopyService.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\controller\CopyRestController.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\exception\BookNotFoundException.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\library-book\src\main\java\com\example\librarybook\config\SecurityConfig.java

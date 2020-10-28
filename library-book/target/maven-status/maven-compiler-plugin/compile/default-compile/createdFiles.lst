@@ -1,0 +1,13 @@
+com\example\librarybook\dao\BookDao.class
+com\example\librarybook\model\Book.class
+com\example\librarybook\controller\CopyRestController.class
+com\example\librarybook\dao\CopyDao.class
+com\example\librarybook\service\CopyService.class
+com\example\librarybook\LibraryBookApplication.class
+com\example\librarybook\config\SwaggerConfig.class
+com\example\librarybook\exception\CopyNotFoundException.class
+com\example\librarybook\controller\BookRestController.class
+com\example\librarybook\exception\BookNotFoundException.class
+com\example\librarybook\service\BookService.class
+com\example\librarybook\config\SecurityConfig.class
+com\example\librarybook\model\Copy.class

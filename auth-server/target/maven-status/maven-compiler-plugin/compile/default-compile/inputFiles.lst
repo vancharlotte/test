@@ -1,0 +1,11 @@
+C:\Users\vanhu\Documents\workspace\projet7\library2\auth-server\src\main\java\com\example\authserver\config\WebSecurityConfiguration.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\auth-server\src\main\java\com\example\authserver\AuthorizationServerApplication.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\auth-server\src\main\java\com\example\authserver\repository\AccountRepository.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\auth-server\src\main\java\com\example\authserver\config\ResourceServer.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\auth-server\src\main\java\com\example\authserver\config\AuthorizationServer.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\auth-server\src\main\java\com\example\authserver\exception\UserNotFoundException.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\auth-server\src\main\java\com\example\authserver\service\UserDetailServiceImpl.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\auth-server\src\main\java\com\example\authserver\controller\AccountController.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\auth-server\src\main\java\com\example\authserver\model\Account.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\auth-server\src\main\java\com\example\authserver\model\AuthUserDetail.java
+C:\Users\vanhu\Documents\workspace\projet7\library2\auth-server\src\main\java\com\example\authserver\service\AccountService.java
