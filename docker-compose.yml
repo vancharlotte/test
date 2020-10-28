@@ -10,6 +10,7 @@ services:
   db:
     image: bitnami/mysql:latest
     container_name: db
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: dbauth
@@ -26,6 +27,7 @@ services:
   config-server:
     image: config-server
     container_name: config-server
+    restart: always
     build:
       context: ./config-server
       dockerfile: Dockerfile
@@ -41,6 +43,7 @@ services:
       - config-server
     image: eureka-server
     container_name: eureka-server
+    restart: always
     build:
       context: ./eureka-server
       dockerfile: Dockerfile
@@ -48,8 +51,6 @@ services:
       - "8761:8761"
     expose:
       - "8761"
-    environment:
-      WAIT_HOSTS: config-server:9101
     networks:
       - library-network
 
@@ -60,6 +61,7 @@ services:
       - db
     image: auth-server
     container_name: auth-server
+    restart: always
     build:
       context: ./auth-server
       dockerfile: Dockerfile
@@ -67,8 +69,6 @@ services:
       - "9191:9191"
     expose:
       - "9191"
-    environment:
-      WAIT_HOSTS: config-server:9101, eureka-server:8761, db:3306
     networks:
       - library-network
 
@@ -80,6 +80,7 @@ services:
       - auth-server
     image: library-book
     container_name: library-book
+    restart: always
     build:
       context: ./library-book
       dockerfile: Dockerfile
@@ -87,8 +88,6 @@ services:
       - "9001:9001"
     expose:
       - "9001"
-    environment:
-      WAIT_HOSTS: config-server:9101, eureka-server:8761, db:3306
     networks:
       - library-network
 
@@ -100,6 +99,7 @@ services:
       - auth-server
     image: library-loan
     container_name: library-loan
+    restart: always
     build:
       context: ./library-loan
       dockerfile: Dockerfile
@@ -107,8 +107,6 @@ services:
       - "9002:9002"
     expose:
       - "9002"
-    environment:
-      WAIT_HOSTS: config-server:9101, eureka-server:8761, db:3306
     networks:
       - library-network
 
@@ -121,6 +119,7 @@ services:
       - library-loan
     image: zuul-server
     container_name: zuul-server
+    restart: always
     build:
       context: ./zuul-server
       dockerfile: Dockerfile
@@ -128,8 +127,6 @@ services:
       - "9004:9004"
     expose:
       - "9004"
-    environment:
-      WAIT_HOSTS: config-server:9101, eureka-server:8761
     networks:
       - library-network
 
@@ -140,6 +137,7 @@ services:
       - auth-server
     image: client-ui
     container_name: client-ui
+    restart: always
     build:
       context: ./client-ui
       dockerfile: Dockerfile
@@ -147,10 +145,9 @@ services:
       - "8000:8000"
     expose:
       - "8000"
-    environment:
-      WAIT_HOSTS: config-server:9101, eureka-server:8761, auth-server:9191
     networks:
       - library-network
 
 networks:
   library-network:
+
