@@ -1,8 +1,12 @@
-FROM openjdk:8
-ADD target/auth-server.jar auth-server.jar
-EXPOSE 9191
+# Build stage
+FROM maven:3.5-jdk-8-alpine AS build
+WORKDIR /auth-server
+COPY pom.xml /
+COPY src /src
+RUN mvn -f /pom.xml clean install
 
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.7.3/wait /wait
-RUN chmod +x /wait
-CMD /wait
-ENTRYPOINT ["java", "-jar", "auth-server.jar"]
+# Run stage
+FROM openjdk:8-jdk-alpine
+COPY --from=build /target/auth-server.jar /auth-server.jar
+EXPOSE 9191
+ENTRYPOINT ["java", "-jar", "/auth-server.jar"]
