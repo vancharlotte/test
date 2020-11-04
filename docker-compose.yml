@@ -21,21 +21,22 @@ services:
       - "6033:3306"
     volumes:
       - ./livrables/dbauth:/docker-entrypoint-initdb.d
+      - ./livrables/db_data:/bitnami/mysql/data
     networks:
       - library-network
 
-config-server:
-  image: config-server
-  container_name: config-server
-  build:
-    context: ./config-server
-    dockerfile: Dockerfile
-  ports:
-    - "9101:9101"
-  expose:
-    - "9101"
-  networks:
-    - library-network
+  config-server:
+    image: config-server
+    container_name: config-server
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    ports:
+      - "9101:9101"
+    expose:
+      - "9101"
+    networks:
+      - library-network
 
   eureka-server:
     depends_on:
@@ -52,7 +53,7 @@ config-server:
     environment:
       WAIT_HOSTS: config-server:9101
     networks:
-      - library-network
+        - library-network
 
   auth-server:
     depends_on:
@@ -85,9 +86,9 @@ config-server:
       context: ./library-book
       dockerfile: Dockerfile
     ports:
-      - "9001:9001"
+      - "9003:9003"
     expose:
-      - "9001"
+      - "9003"
     environment:
       WAIT_HOSTS: config-server:9101, eureka-server:8761, db:3306
     networks:

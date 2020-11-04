@@ -8,5 +8,5 @@ RUN mvn -f /pom.xml clean install
 # Run stage
 FROM openjdk:8-jdk-alpine
 COPY --from=build /target/library-book.jar /library-book.jar
-EXPOSE 9001
+EXPOSE 9003
 ENTRYPOINT ["java", "-jar", "/library-book.jar"]
