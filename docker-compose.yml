@@ -8,6 +8,7 @@ services:
     networks:
       - library-network
 
+
   db:
     image: bitnami/mysql:8.0.22-debian-10-r6
     container_name: db
@@ -21,7 +22,7 @@ services:
       - "6033:3306"
     volumes:
       - ./livrables/dbauth:/docker-entrypoint-initdb.d
-      - ./livrables/db_data:/bitnami/mysql/data
+      - db_data:/bitnami/mysql/data
     networks:
       - library-network
 
@@ -35,6 +36,8 @@ services:
       - "9101:9101"
     expose:
       - "9101"
+    environment:
+      SPRING_CONFIG_SERVER_URI: https://github.com/vancharlotte/config-server-repo.git
     networks:
       - library-network
 
@@ -51,7 +54,8 @@ services:
     expose:
       - "8761"
     environment:
-      WAIT_HOSTS: config-server:9101
+      SPRING_CONFIG_URI : http://config-server:9101
+      EUREKA_SERVER_URL : http://localhost:8761/eureka
     networks:
         - library-network
 
@@ -62,6 +66,7 @@ services:
       - db
     image: auth-server
     container_name: auth-server
+    restart : always
     build:
       context: ./auth-server
       dockerfile: Dockerfile
@@ -70,7 +75,9 @@ services:
     expose:
       - "9191"
     environment:
-      WAIT_HOSTS: config-server:9101, eureka-server:8761, db:3306
+      SPRING_CONFIG_URI: http://config-server:9101
+      EUREKA_SERVER_URL : http://eureka-server:8761/eureka
+      SPRING_DATASOURCE_URI : jdbc:mysql://db:3306/dbauth?createDatabaseIfNotExist=true
     networks:
       - library-network
 
@@ -82,15 +89,18 @@ services:
       - auth-server
     image: library-book
     container_name: library-book
+    restart : always
     build:
       context: ./library-book
       dockerfile: Dockerfile
     ports:
-      - "9003:9003"
+      - "9001:9001"
     expose:
-      - "9003"
+      - "9001"
     environment:
-      WAIT_HOSTS: config-server:9101, eureka-server:8761, db:3306
+      SPRING_CONFIG_URI: http://config-server:9101
+      EUREKA_SERVER_URL : http://eureka-server:8761/eureka/
+      SPRING_DATASOURCE_URI: jdbc:mysql://db:3306/dbbook?createDatabaseIfNotExist=true
     networks:
       - library-network
 
@@ -102,6 +112,7 @@ services:
       - auth-server
     image: library-loan
     container_name: library-loan
+    restart : always
     build:
       context: ./library-loan
       dockerfile: Dockerfile
@@ -110,7 +121,9 @@ services:
     expose:
       - "9002"
     environment:
-      WAIT_HOSTS: config-server:9101, eureka-server:8761, db:3306
+      SPRING_CONFIG_URI: http://config-server:9101
+      EUREKA_SERVER_URL : http://eureka-server:8761/eureka/
+      SPRING_DATASOURCE_URI: jdbc:mysql://db:3306/dbloan?createDatabaseIfNotExist=true
     networks:
       - library-network
 
@@ -131,7 +144,8 @@ services:
     expose:
       - "9004"
     environment:
-      WAIT_HOSTS: config-server:9101, eureka-server:8761
+      SPRING_CONFIG_URI: http://config-server:9101
+      EUREKA_SERVER_URL : http://eureka-server:8761/eureka/
     networks:
       - library-network
 
@@ -150,10 +164,13 @@ services:
     expose:
       - "8000"
     environment:
-      WAIT_HOSTS: config-server:9101, eureka-server:8761, auth-server:9191
+      SPRING_CONFIG_URI: http://config-server:9101
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
     networks:
       - library-network
 
+volumes :
+  db_data:
 
 networks:
   library-network:
