@@ -11,10 +11,10 @@ services:
   db:
     image: bitnami/mysql:8.0.22-debian-10-r6
     logging:
-         driver: "awslogs"
+         driver: awslogs
          options:
-           awslogs-group: "web-logs"
-           awslogs-region: "eu-west-3"
+           awslogs-group: web-logs
+           awslogs-region: eu-west-3
            awslogs-stream: db-logs
     container_name: db
     restart: always
@@ -34,10 +34,10 @@ services:
   config-server:
     image: config-server
     logging:
-         driver: "awslogs"
+         driver: awslogs
          options:
-           awslogs-group: "web-logs"
-           awslogs-region: "ap-south-1"
+           awslogs-group: web-logs
+           awslogs-region: eu-west-3
            awslogs-stream: config-server
     container_name: config-server
     build:
