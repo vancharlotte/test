@@ -27,6 +27,12 @@ services:
 
   config-server:
     image: config-server
+    logging:
+         driver: awslogs
+         options:
+           awslogs-group: web-logs
+           awslogs-region: eu-west-3
+           awslogs-stream: db-logs
     container_name: config-server
     build:
       context: ./config-server
