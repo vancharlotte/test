@@ -10,6 +10,12 @@ services:
 
   db:
     image: bitnami/mysql:8.0.22-debian-10-r6
+    logging:
+         driver: "awslogs"
+         options:
+           awslogs-group: "web-logs"
+           awslogs-region: "eu-west-3"
+           awslogs-stream: db-logs
     container_name: db
     restart: always
     environment:
@@ -27,6 +33,12 @@ services:
 
   config-server:
     image: config-server
+    logging:
+         driver: "awslogs"
+         options:
+           awslogs-group: "web-logs"
+           awslogs-region: "ap-south-1"
+           awslogs-stream: config-server
     container_name: config-server
     build:
       context: ./config-server
@@ -37,134 +49,6 @@ services:
       - "9101"
     environment:
       SPRING_CONFIG_SERVER_URI: https://github.com/vancharlotte/config-server-repo.git
-    networks:
-      - library-network
-
-  eureka-server:
-    depends_on:
-      - config-server
-    image: eureka-server
-    container_name: eureka-server
-    build:
-      context: ./eureka-server
-      dockerfile: Dockerfile
-    ports:
-      - "8761:8761"
-    expose:
-      - "8761"
-    environment:
-      SPRING_CONFIG_URI : http://config-server:9101
-      EUREKA_SERVER_URL : http://localhost:8761/eureka
-    networks:
-        - library-network
-
-  auth-server:
-    depends_on:
-      - config-server
-      - eureka-server
-      - db
-    image: auth-server
-    container_name: auth-server
-    restart : always
-    build:
-      context: ./auth-server
-      dockerfile: Dockerfile
-    ports:
-      - "9191:9191"
-    expose:
-      - "9191"
-    environment:
-      SPRING_CONFIG_URI: http://config-server:9101
-      EUREKA_SERVER_URL : http://eureka-server:8761/eureka
-      SPRING_DATASOURCE_URI : jdbc:mysql://db:3306/dbauth?createDatabaseIfNotExist=true
-    networks:
-      - library-network
-
-  library-book:
-    depends_on:
-      - config-server
-      - eureka-server
-      - db
-      - auth-server
-    image: library-book
-    container_name: library-book
-    restart : always
-    build:
-      context: ./library-book
-      dockerfile: Dockerfile
-    ports:
-      - "9001:9001"
-    expose:
-      - "9001"
-    environment:
-      SPRING_CONFIG_URI: http://config-server:9101
-      EUREKA_SERVER_URL : http://eureka-server:8761/eureka/
-      SPRING_DATASOURCE_URI: jdbc:mysql://db:3306/dbbook?createDatabaseIfNotExist=true
-    networks:
-      - library-network
-
-  library-loan:
-    depends_on:
-      - config-server
-      - eureka-server
-      - db
-      - auth-server
-    image: library-loan
-    container_name: library-loan
-    restart : always
-    build:
-      context: ./library-loan
-      dockerfile: Dockerfile
-    ports:
-      - "9002:9002"
-    expose:
-      - "9002"
-    environment:
-      SPRING_CONFIG_URI: http://config-server:9101
-      EUREKA_SERVER_URL : http://eureka-server:8761/eureka/
-      SPRING_DATASOURCE_URI: jdbc:mysql://db:3306/dbloan?createDatabaseIfNotExist=true
-    networks:
-      - library-network
-
-  zuul-server:
-    depends_on:
-      - config-server
-      - eureka-server
-      - auth-server
-      - library-book
-      - library-loan
-    image: zuul-server
-    container_name: zuul-server
-    build:
-      context: ./zuul-server
-      dockerfile: Dockerfile
-    ports:
-      - "9004:9004"
-    expose:
-      - "9004"
-    environment:
-      SPRING_CONFIG_URI: http://config-server:9101
-      EUREKA_SERVER_URL : http://eureka-server:8761/eureka/
-    networks:
-      - library-network
-
-  client-ui:
-    depends_on:
-      - config-server
-      - eureka-server
-      - auth-server
-    image: client-ui
-    container_name: client-ui
-    build:
-      context: ./client-ui
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
-    expose:
-      - "8000"
-    environment:
-      SPRING_CONFIG_URI: http://config-server:9101
-      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
     networks:
       - library-network
 
