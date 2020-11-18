@@ -25,30 +25,9 @@ services:
     networks:
       - library-network
 
-  config-server:
-    image: config-server
-    logging:
-         driver: awslogs
-         options:
-           awslogs-group: web-logs
-           awslogs-region: eu-west-3
-           awslogs-stream: db-logs
-    container_name: config-server
-    build:
-      context: ./config-server
-      dockerfile: Dockerfile
-    ports:
-      - "9101:9101"
-    expose:
-      - "9101"
-    environment:
-      SPRING_CONFIG_SERVER_URI: https://github.com/vancharlotte/config-server-repo.git
-    networks:
-      - library-network
+  
       
   client-ui:
-    depends_on:
-      - config-server
     image: client-ui
     container_name: client-ui
     build:
