@@ -46,7 +46,7 @@ services:
     networks:
       - library-network
       
-      client-ui:
+  client-ui:
     depends_on:
       - config-server
     image: client-ui
